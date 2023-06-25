@@ -32,39 +32,40 @@ exports.createClient = async (req, res) => {
   }
 };
 
-
 //Function for fetching all transaction of client
-exports.getAllOrders = async(req, res) => {
-    try {
-        //Fetch data from req
-        const {firmName} = req.body;
+exports.getAllOrders = async (req, res) => {
+  try {
+    //Fetch data from req
+    const { firmName } = req.body;
 
-        //Validation
-        if(!firmName) {
-            return res.status(400).json({
-                success:false,
-                message:"Please Select Firm ",
-            });
-        }
-
-        //Fetch firm from DB
-        const ordersDetail = await Client.findOne({firmName:firmName}).populate("orders").exec();
-
-        if(!ordersDetail) {
-            return res.status(401).json({
-                success:false,
-                message:"No Order found",
-            })
-        }
-
-        return res.status(200).json({
-            success:true,
-            message:"Orders fetch successfully",
-        })
-    }catch(error) {
-        return res.status(500).json({
-            success:false,
-            message:"Internal Error",
-        });
+    //Validation
+    if (!firmName) {
+      return res.status(400).json({
+        success: false,
+        message: "Please Select Firm ",
+      });
     }
-}
+
+    //Fetch firm from DB
+    const ordersDetail = await Client.findOne({ firmName: firmName })
+      .populate("orders")
+      .exec();
+
+    if (!ordersDetail) {
+      return res.status(401).json({
+        success: false,
+        message: "No Order found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Orders fetch successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Error",
+    });
+  }
+};

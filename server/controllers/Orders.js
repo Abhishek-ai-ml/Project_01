@@ -10,18 +10,29 @@ exports.addNewOrder = async (req, res) => {
       });
     }
 
-    const clientDetails = await Client.create({
-      firmName: firmName,
-      OwnerName: OwnerName,
-      address: address,
+    //let data = await Order.create(order);
+    const clientEntity = await Client.findOne({ firmName: client });
+    const clientID = clientEntity._id;
+    //await client.save();
+
+    const orderDetails = await Order.create({
+      client: clientID,
+      lotNo: lotNo,
+      item: item,
+      type: type,
+      rate: rate,
+      quantity: quantity,
+      totalAmount: quantity * rate,
     });
 
-    console.log("Details of Client are", clientDetails);
+    clientEntity.orders.push(orderDetails._id);
+    await client.save();
+
+    console.log("Order Details : ", orderDetails);
     return res.status(200).json({
       success: true,
-      message: "Client Created Successfully",
+      message: "Order Placed Successfully",
     });
-    
   } catch {
     return res.status(500).json({
       success: false,
