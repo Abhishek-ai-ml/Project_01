@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const transactionSchema = new mongoose.Schema(
   {
+    client: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Client",
+      required: true,
+    },
     order: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Order",
