@@ -1,4 +1,5 @@
 const Order = require("../models/Orders");
+const Client = require('../models/Client')
 
 exports.addNewOrder = async (req, res) => {
   try {
@@ -26,7 +27,7 @@ exports.addNewOrder = async (req, res) => {
     });
 
     clientEntity.orders.push(orderDetails._id);
-    await client.save();
+    await clientEntity.save();
 
     console.log("Order Details : ", orderDetails);
     return res.status(200).json({

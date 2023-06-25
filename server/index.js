@@ -1,4 +1,6 @@
 const express = require('express');
+const clientRoutes = require('./routes/Client');
+const orderRoutes = require('./routes/Orders')
 const app = express();
 app.use(express.json())
 
@@ -6,6 +8,9 @@ const database = require('./config/database')
 
 
 database.connect();
+
+app.use("/client", clientRoutes);
+app.use("/orders", orderRoutes);
 
 
 app.listen(4000, () =>{

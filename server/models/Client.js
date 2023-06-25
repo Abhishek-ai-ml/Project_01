@@ -10,14 +10,17 @@ const clientSchema = new mongoose.Schema(
     OwnerName: {
       type: String,
     },
-    address: [
-      {
-        street: String,
-        city: String,
-        state: String,
-        zip: String,
-      },
-    ],
+    // address: [
+    //   {
+    //     street: String,
+    //     city: String,
+    //     state: String,
+    //     zip: String,
+    //   },
+    // ],
+    address:{
+      type:String,
+    },
     orders: [
       {
         type: mongoose.Schema.Types.ObjectId,
