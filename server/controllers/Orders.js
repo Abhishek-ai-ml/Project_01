@@ -9,6 +9,19 @@ exports.addNewOrder = async (req, res) => {
         message: "All Fields are mandatory , Please Fill Carefully",
       });
     }
+
+    const clientDetails = await Client.create({
+      firmName: firmName,
+      OwnerName: OwnerName,
+      address: address,
+    });
+
+    console.log("Details of Client are", clientDetails);
+    return res.status(200).json({
+      success: true,
+      message: "Client Created Successfully",
+    });
+    
   } catch {
     return res.status(500).json({
       success: false,
