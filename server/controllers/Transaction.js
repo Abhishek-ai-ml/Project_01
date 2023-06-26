@@ -34,7 +34,7 @@ exports.addNewTransaction = async (req, res) => {
     console.log("Transaction Details : ", transactionDetails);
     return res.status(200).json({
       success: true,
-      message: "Order Placed Successfully",
+      message: "Transaction Occur  Successfully",
     });
   } catch {
     return res.status(500).json({
