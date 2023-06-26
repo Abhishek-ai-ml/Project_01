@@ -41,3 +41,42 @@ exports.addNewOrder = async (req, res) => {
     });
   }
 };
+
+
+exports.getAllTransaction = async(req, res) => {
+  try {
+    //Fetch data from req body
+    const {firmName, lotNo} = req.body;
+
+    //Validation
+    if(!firmName || !lotNo) {
+      return res.status(401).json({
+        success:false,
+        message:"Fill all fields carefully",
+      }) 
+    }
+
+    const clientEntity = await Client.findOne({firmName:firmName});
+
+    const orderEntity = await Order.find({client:clientEntity._id, lotNo:lotNo}).populate("transactions").exec();
+
+    if(!orderEntity.length) {
+      return res.status(404).json({
+        success:false,
+        message:"No Transactions found for particular details",
+      })
+    }
+
+    return res.status(200).json({
+      success:true,
+      message:"Transactions details fetch successfully",
+      orderEntity,
+    })
+
+  }catch(error) {
+    return res.status(500).json({
+      success:false,
+      message:"Internal Error while fetching transaction details",
+    })
+  }
+}
