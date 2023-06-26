@@ -1,4 +1,5 @@
 const Client = require("../models/Client");
+const Order = require("../models/Orders");
 const Transaction = require("../models/Transaction");
 
 //Additon of new client
@@ -37,7 +38,7 @@ exports.createClient = async (req, res) => {
 exports.getAllOrders = async (req, res) => {
   try {
     //Fetch data from req
-    const { firmName } = req.body;
+    const { firmName, startTime, endTime } = req.body;
 
     //Validation
     if (!firmName) {
@@ -47,10 +48,20 @@ exports.getAllOrders = async (req, res) => {
       });
     }
 
+    const clientEntity = await Client.findOne({ firmName: firmName });
+
+    const query = { client: clientEntity._id };
+
+    if (startTime) {
+      query.createdAt = { $gte: startTime };
+    }
+
+    if (endTime) {
+      query.createdAt = { ...query.createdAt, $lte: endTime };
+    }
+
     //Fetch firm from DB
-    const ordersDetail = await Client.findOne({ firmName: firmName })
-      .populate("orders")
-      .exec();
+    const ordersDetail = await Order.find(query);
 
     if (!ordersDetail) {
       return res.status(401).json({
