@@ -1,5 +1,5 @@
 const Order = require("../models/Orders");
-const Client = require('../models/Client')
+const Client = require("../models/Client");
 
 exports.addNewOrder = async (req, res) => {
   try {
@@ -11,10 +11,8 @@ exports.addNewOrder = async (req, res) => {
       });
     }
 
-    //let data = await Order.create(order);
     const clientEntity = await Client.findOne({ firmName: client });
     const clientID = clientEntity._id;
-    //await client.save();
 
     const orderDetails = await Order.create({
       client: clientID,
