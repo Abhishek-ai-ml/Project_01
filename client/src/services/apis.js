@@ -1,0 +1,10 @@
+const BASE_URL = "http://localhost:4000"
+
+//CLIENT ENDPOINTS
+
+
+
+//ORDER ENDPOINTS
+
+
+//TRANSACTION ENDPOINTS
