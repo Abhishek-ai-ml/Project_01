@@ -35,8 +35,8 @@ const Login = () => {
         <div className='w-[50%] p-10  flex flex-col mx-auto items-center gap-3'>
             {/* Heading */}
             <div className='flex flex-col justify-center items-center w-full'>
-                <h1>Welcome Back!</h1>
-                <p>Sign in to Continue</p>
+                <h1 className='text-2xl font-semibold'>Welcome Back!</h1>
+                <p className='text-base text-slate-700 font-semibold'>Sign in to Continue</p>
             </div>
 
             {/* Main form */}
@@ -47,13 +47,13 @@ const Login = () => {
                     <input
                         type='text'
                         placeholder='Enter Username'
-                        {...register("username")}
+                        {...register("username", {required:true}) }
                         id='username'
                         className='p-3 border-[1px] rounded-xl'
                     />
                     {
                         errors.username && (
-                            <span>Please Enter Username</span>
+                            <span className='text-red-500 text-sm font-semibold'>Please Enter Username</span>
                         )
                     }
                 </div>
@@ -64,18 +64,18 @@ const Login = () => {
                     <input
                         type='password'
                         placeholder='Enter password'
-                        {...register("password")}
+                        {...register("password",{required:true})}
                         id='password'
                         className='p-3 border-[1px] rounded-xl'
                     />
                     {
                         errors.password && (
-                            <span>Please Enter Password</span>
+                            <span className='text-red-500 text-sm font-semibold'>Please Enter Password</span>
                         )
                     }
                 </div>
 
-                <button onClick={handleSubmit(onSubmit())} className='p-3 w-full flex justify-center bg-green-500 rounded-xl'>
+                <button onClick={handleSubmit(onSubmit())} className='p-3 w-full flex justify-center bg-green-500 rounded-xl text-white font-semibold text-lg'>
                     Login
                 </button>
             </form>
